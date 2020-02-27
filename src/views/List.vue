@@ -12,18 +12,27 @@
           <v-card-title>
             People
             <v-spacer></v-spacer>
-            <v-text-field
-              v-model="people.search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
+            <v-form @submit="searchData(people.search, 'people')" class="d-flex">
+              <v-text-field
+                class="pt-0"
+                v-model="people.search"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+              <v-btn 
+                depressed 
+                fab 
+                small
+              >
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </v-form>
+
           </v-card-title>
           <v-data-table
             :headers="people.headers"
             :items="people.list"
-            :search="people.search"
             :options="people.options"
             :loading="people.loading"
           ></v-data-table>
@@ -35,18 +44,27 @@
           <v-card-title>
             Planets
             <v-spacer></v-spacer>
-            <v-text-field
-              v-model="planets.search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
+            <v-form @submit="searchData(planets.search, 'planets')" class="d-flex">
+              <v-text-field
+                class="pt-0"
+                v-model="planets.search"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+              <v-btn 
+                depressed 
+                fab 
+                small
+              >
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </v-form>
+
           </v-card-title>
           <v-data-table
             :headers="planets.headers"
             :items="planets.list"
-            :search="planets.search"
             :options="planets.options"
             :loading="planets.loading"
           ></v-data-table>
@@ -105,6 +123,24 @@ export default {
       }
 
       data.next ? this.getData(data.next, resource) : this[resource].loading = false;
+    },
+
+    // search by name
+    searchData(value, resource) {
+      const apiURL = 'https://swapi.co/api/';
+
+      event.preventDefault();
+      this[resource].loading = true;
+      if(value === '') {
+        this[resource].list = [];
+        this.getData(`${apiURL}${resource}`, resource);
+      } else {
+        axios.get(`${apiURL}${resource}/?search=${value}`)
+          .then(res => {
+            this[resource].list = res.data.results;
+            this[resource].loading = false;
+          }).catch(err => alert(err));
+      }
     }
   },
   created() {
@@ -114,7 +150,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
