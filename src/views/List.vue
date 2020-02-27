@@ -1,9 +1,9 @@
 <template>
   <v-container class="pt-0 px-0">
     <v-app-bar dense class="mb-8 indigo darken-2">
-      <v-toolbar-title class="white--text">UserNickname1</v-toolbar-title>
+      <v-toolbar-title class="white--text">Dive into SW data</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn dark text>Logout</v-btn>
+      <v-btn @click="onLogout()" dark text>Logout</v-btn>
     </v-app-bar>
 
     <v-row justify="space-around">
@@ -21,6 +21,7 @@
                 hide-details
               ></v-text-field>
               <v-btn 
+                type="submit"
                 depressed 
                 fab 
                 small
@@ -52,7 +53,8 @@
                 single-line
                 hide-details
               ></v-text-field>
-              <v-btn 
+              <v-btn
+                type="submit"
                 depressed 
                 fab 
                 small
@@ -77,6 +79,7 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'List',
@@ -109,6 +112,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["logout"]),
+
+    // logout from app
+    onLogout() {
+      this.logout();
+      this.$router.push('login');
+    },
+
     // get data from api
     getData(apiURL, resource) {
       axios.get(apiURL)

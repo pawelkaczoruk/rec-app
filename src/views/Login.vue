@@ -4,14 +4,16 @@
       align="center"
       justify="center"
     >
-      <v-form 
+      <v-form @submit="onLogin()"
         class="text-center ml-4"
         ref="login"
       >
         <h2 class="mb-8 text-center primary--text">Sign in to browse content</h2>
+        <h4 
+          class="mb-4 text-center red--text"
+          v-if="loginStatus == 'error'">Wrong password or username</h4>
 
         <v-text-field
-          type=""
           v-model="auth.login"
           label="Login"
           required
@@ -20,7 +22,7 @@
           outlined></v-text-field>
 
         <v-text-field
-          type=""
+          type="password"
           v-model="auth.password"
           label="Password"
           required
@@ -28,15 +30,17 @@
           append-icon="mdi-lock"
           outlined></v-text-field>
 
-        <v-btn class="primary" @click="onLogin()">
+        <v-btn type="submit" class="primary">
           Send
-        </v-btn>          
+        </v-btn>
       </v-form>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'Login',
   data() {
@@ -51,10 +55,26 @@ export default {
       }
     }
   },
+  computed: mapGetters(['loginStatus']),
   methods: {
+    ...mapActions(["login"]),
+
     onLogin() {
       // validate
-      this.$refs.login.validate()
+      if(this.$refs.login.validate()) {
+        this.login(this.auth);
+      }
+
+      // clean user data
+      this.auth = {
+        login: '',
+        password: ''
+      }
+    }
+  },
+  watch: {
+    loginStatus: function() {
+      if(this.loginStatus === 'success') this.$router.push('list');
     }
   }
 }
