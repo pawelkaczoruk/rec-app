@@ -1,48 +1,59 @@
 <template>
-  <v-container>
-    
-    <v-card max-width="600px">
-      <v-card-title>
-        People
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="people.search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-card-title>
-      <v-data-table
-        :headers="people.headers"
-        :items="people.list"
-        :search="people.search"
-        items-per-page="5"
-        :loading="people.loading"
-      ></v-data-table>
-    </v-card>
+  <v-container class="pt-0 px-0">
+    <v-app-bar dense class="mb-8 indigo darken-2">
+      <v-toolbar-title class="white--text">UserNickname1</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn dark text>Logout</v-btn>
+    </v-app-bar>
 
-    <v-card max-width="600px">
-      <v-card-title>
-        Planets
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="planets.search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-card-title>
-      <v-data-table
-        :headers="planets.headers"
-        :items="planets.list"
-        :search="planets.search"
-        items-per-page=5
-        :loading="planets.loading"
-      ></v-data-table>
-    </v-card>
+    <v-row justify="space-around">
+      <v-col cols="auto" md="6">
+        <v-card>
+          <v-card-title>
+            People
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="people.search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-card-title>
+          <v-data-table
+            :headers="people.headers"
+            :items="people.list"
+            :search="people.search"
+            :options="people.options"
+            :loading="people.loading"
+          ></v-data-table>
+        </v-card>
+      </v-col>
 
+      <v-col cols="auto" md="6">
+        <v-card>
+          <v-card-title>
+            Planets
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="planets.search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-card-title>
+          <v-data-table
+            :headers="planets.headers"
+            :items="planets.list"
+            :search="planets.search"
+            :options="planets.options"
+            :loading="planets.loading"
+          ></v-data-table>
+        </v-card>
+      </v-col>
+
+    </v-row>
   </v-container>
 </template>
 
@@ -62,6 +73,7 @@ export default {
           { text: 'Gender', value: 'gender', filterable: false },
           { text: 'Birth Year', value: 'birth_year', filterable: false },
         ],
+        options: { itemsPerPage: 5 },
         loading: true
       },
       planets: {
@@ -73,6 +85,7 @@ export default {
           { text: 'Terrain', value: 'terrain', filterable: false },
           { text: 'Population', value: 'population', filterable: false },
         ],
+        options: { itemsPerPage: 5 },
         loading: true
       }
     }
