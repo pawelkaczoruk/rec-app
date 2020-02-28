@@ -12,6 +12,9 @@
         <h4 
           class="mb-4 text-center red--text"
           v-if="loginStatus == 'error'">Wrong password or username</h4>
+        <h4 
+          class="mb-4 text-center green--text"
+          v-if="loginStatus == 'logged_out'">Successfully logged out</h4>
 
         <v-text-field
           v-model="auth.login"
@@ -57,7 +60,7 @@ export default {
   },
   computed: mapGetters(['loginStatus']),
   methods: {
-    ...mapActions(["login"]),
+    ...mapActions(['login']),
 
     onLogin() {
       event.preventDefault();

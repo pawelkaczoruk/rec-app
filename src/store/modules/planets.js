@@ -32,10 +32,12 @@ const actions = {
       .catch(err => alert(err));
   },
 
-  // save data into state
-  addPlanets({dispatch, commit}, data) {
-    commit('addToPlanetsList', data.results);
-    data.next ? dispatch('getPlanets', data.next) : commit('setPlanetsLoading', false);
+  // save data into state when user is logged in
+  addPlanets({dispatch, commit, rootState}, data) {
+    if(rootState.auth.status === 'success') {
+      commit('addToPlanetsList', data.results);
+      data.next ? dispatch('getPlanets', data.next) : commit('setPlanetsLoading', false);      
+    }
   },
 
   // update search state and call action to get data from API

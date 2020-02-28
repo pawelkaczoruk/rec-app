@@ -49,7 +49,7 @@ const mutations = {
   },
   auth_error: state => state.status = 'error',
   logout: state => {
-    state.status = ''
+    state.status = 'logged_out'
     state.token = ''
     state.user = {}
   }

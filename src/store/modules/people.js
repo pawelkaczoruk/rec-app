@@ -32,10 +32,12 @@ const actions = {
       .catch(err => alert(err));
   },
 
-  // save data into state
-  addPeople({dispatch, commit}, data) {
-    commit('addToPeopleList', data.results);
-    data.next ? dispatch('getPeople', data.next) : commit('setPeopleLoading', false);
+  // save data into state when user is logged in
+  addPeople({dispatch, commit, rootState}, data) {
+    if(rootState.auth.status === 'success') {
+      commit('addToPeopleList', data.results);
+      data.next ? dispatch('getPeople', data.next) : commit('setPeopleLoading', false);      
+    }
   },
 
   // update search state and call action to get data from API
