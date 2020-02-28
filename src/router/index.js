@@ -15,6 +15,10 @@ const routes = [
     path: '/list',
     name: 'List',
     component: List
+  },
+  {
+    path: '*',
+    redirect: '/login'
   }
 ]
 
