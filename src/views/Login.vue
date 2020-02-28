@@ -60,6 +60,8 @@ export default {
     ...mapActions(["login"]),
 
     onLogin() {
+      event.preventDefault();
+
       // validate
       if(this.$refs.login.validate()) {
         this.login(this.auth);

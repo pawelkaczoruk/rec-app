@@ -42,6 +42,13 @@ const actions = {
   searchPeopleUpt({dispatch, commit}, value) { 
     commit('searchPeopleUpdate', value);
     dispatch('searchPeople');
+  },
+
+  // clear planets data
+  clearPeople({commit}) {
+    commit('clearPeopleList');
+    commit('searchPeopleUpdate', '');
+    commit('setPeopleLoading', true);
   }
 };
 

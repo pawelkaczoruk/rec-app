@@ -42,6 +42,13 @@ const actions = {
   searchPlanetsUpt({dispatch, commit}, value) { 
     commit('searchPlanetsUpdate', value);
     dispatch('searchPlanets');
+  },
+
+  // clear planets data
+  clearPlanets({commit}) {
+    commit('clearPlanetsList');
+    commit('searchPlanetsUpdate', '');
+    commit('setPlanetsLoading', true);
   }
 };
 

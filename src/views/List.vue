@@ -112,20 +112,25 @@ export default {
     'peopleList', 
     'peopleLoading', 
     'planetsList', 
-    'planetsLoading'
+    'planetsLoading',
+    'loginStatus'
   ]),
   methods: {
     ...mapActions([
       'logout', 
       'searchPeople', 
       'searchPeopleUpt',
+      'clearPeople',
       'searchPlanets', 
-      'searchPlanetsUpt'
+      'searchPlanetsUpt',
+      'clearPlanets'
     ]),
 
     // logout from app
     onLogout() {
       this.logout();
+      this.clearPeople();
+      this.clearPlanets();
       this.$router.push('login');
     },
 
@@ -137,10 +142,12 @@ export default {
     }
 
   },
-  mounted() {
-    // call search action
-    this.searchPeople();
-    this.searchPlanets();
+  created() {
+    // call search action if user is logged in
+    if(this.loginStatus) {
+      this.searchPeople();
+      this.searchPlanets();      
+    } else this.$router.push('login');
   }
 }
 </script>
