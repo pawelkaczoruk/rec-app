@@ -34,7 +34,7 @@ const actions = {
 
   // save data into state when user is logged in
   addPlanets({dispatch, commit, rootState}, data) {
-    if(rootState.auth.status === 'success') {
+    if(rootState.auth.token) {
       commit('addToPlanetsList', data.results);
       data.next ? dispatch('getPlanets', data.next) : commit('setPlanetsLoading', false);      
     }

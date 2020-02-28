@@ -113,7 +113,7 @@ export default {
     'peopleLoading', 
     'planetsList', 
     'planetsLoading',
-    'loginStatus'
+    'loginToken'
   ]),
   methods: {
     ...mapActions([
@@ -144,7 +144,7 @@ export default {
   },
   created() {
     // call search action if user is logged in
-    if(this.loginStatus) {
+    if(this.loginToken) {
       this.searchPeople();
       this.searchPlanets();      
     } else this.$router.push('login');

@@ -58,9 +58,15 @@ export default {
       }
     }
   },
-  computed: mapGetters(['loginStatus']),
+  computed: mapGetters([
+    'loginStatus',
+    'loginToken'
+  ]),
   methods: {
-    ...mapActions(['login']),
+    ...mapActions([
+      'login',
+      'checkUserInfo'
+    ]),
 
     onLogin() {
       event.preventDefault();
@@ -77,14 +83,13 @@ export default {
       }
     }
   },
+  created() {
+    this.checkUserInfo();
+  },
   watch: {
-    loginStatus: function() {
-      if(this.loginStatus === 'success') this.$router.push('list');
+    loginToken: function() {
+      if(this.loginToken) this.$router.push('list');
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

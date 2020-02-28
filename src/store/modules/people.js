@@ -34,7 +34,7 @@ const actions = {
 
   // save data into state when user is logged in
   addPeople({dispatch, commit, rootState}, data) {
-    if(rootState.auth.status === 'success') {
+    if(rootState.auth.token) {
       commit('addToPeopleList', data.results);
       data.next ? dispatch('getPeople', data.next) : commit('setPeopleLoading', false);      
     }
