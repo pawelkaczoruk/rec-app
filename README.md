@@ -16,3 +16,9 @@ Live verision of website is available [here](https://boring-edison-6f1d39.netlif
 npm install
 npm run serve
 ```
+
+## Tech Stack
+* Vue.js
+* Vuetify
+* Vue Router
+* Vuex
