@@ -1,4 +1,4 @@
-<h1 align="center">rec-test-app</h1>
+<h1 align="center">SWAPI-recruitment-app</h1>
 <h4 align="center">App built for recruitment process at Softwarehood</h4>
 
 ## Info
